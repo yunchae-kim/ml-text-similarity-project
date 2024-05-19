@@ -1,0 +1,13 @@
+Briefly answer the following technical questions (please don’t spend too much time on this, just 1-5 sentences) in the body of your email that will help us gauge your experience with technologies relevant to the position:
+
+
+AWS S3: In your own words, what is an AWS S3 bucket / have you used one before? Please give an example command of how to install the “aws” CLI tool on Linux and a command of how to use the “aws” CLI tool of how to upload a file to an AWS S3 bucket.
+
+
+AWS EC2: In your own words, what is AWS EC2 / have you used it before? Can you look up and tell us what is the difference between t3.2xlarge and p3.8xlarge on AWS EC2?
+
+
+SLURM: Although IARPA uses AWS, University of Pennsylvania does not use AWS. We run our own server cluster in our own private data center that is managed by high-performance computing (HPC) software (SLURM, more information). In your own words describe what SLURM is / have you used it or other HPC software before? (it’s okay if you have not) Why do you think SLURM is needed for our environment? Based on the links provided, do you feel confident you understand how SLURM generally works & how to “submit a job” to run on our cluster or do you feel like you could easily learn given a few days to read up on it? If you have experience, share any information about similar software or infrastructure tools or job-scheduling software you have learned to use in the past.
+
+
+Using GPUs & Infrastructure/System Setup From Scratch: Have you ever used GPUs? (it’s okay if you haven’t) Describe the extent to which you have. Do you feel confident, given access to our GPU cluster, you could write Python code that uses GPUs and that you could create Docker containers that utilize GPUs? Note that creating Docker containers that utilize GPUs requires a fair bit of operating systems hacking/experience (it can be buggy, requires going to Stack Overflow, reading online blog posts by others with example bash/shell/Python commands of how to set up a Docker container making use of GPUs). If you have experience, share any information about similar situations in the past where you had to independently learn how to set up a complex / bespoke system or server completely from scratch through trial and error and referencing/reading information online.
