@@ -1,45 +1,78 @@
+import json
+import logging
+
 import numpy as np
-from sentence_transformers import SentenceTransformer
+from sentence_transformers import SentenceTransformer, util
 
-# Load the input lines from input.txt
-with open("/usr/local/dataset/input.txt", "r") as file:
-    lines = file.readlines()
-
-# Remove any trailing newline characters from the lines
-lines = [line.strip() for line in lines]
-
-# Load the sentence-transformers model
-model = SentenceTransformer("AnnaWegmann/Style-Embedding")
-
-# Implement batching with a batch size of 2
-batch_size = 2
-num_batches = len(lines) // batch_size
-remaining_lines = len(lines) % batch_size
-
-embeddings = []
-for i in range(num_batches):
-    batch_lines = lines[i * batch_size : (i + 1) * batch_size]
-    batch_embeddings = model.encode(batch_lines)
-    embeddings.append(batch_embeddings)
-
-if remaining_lines > 0:
-    remaining_batch = lines[num_batches * batch_size :]
-    remaining_embeddings = model.encode(remaining_batch)
-    embeddings.append(remaining_embeddings)
-
-# Concatenate the embeddings into a single numpy array
-embeddings = np.concatenate(embeddings, axis=0)
-
-# Compute the cosine similarity between each pair of lines
-similarity_matrix = np.dot(embeddings, embeddings.T)
-
-# Find the indices of the two most similar lines
-indices = np.unravel_index(similarity_matrix.argmax(), similarity_matrix.shape)
-
-# Print the most similar lines
-print(
-    f"Line {indices[0] + 1} and Line {indices[1] + 1} are the most similar to each other"
+# Setup logging
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
-# Save the embedding matrix to output.npy
-np.save("/usr/local/output/output.npy", embeddings)
+
+def load_config(config_path):
+    """Load configuration from a JSON file."""
+    with open(config_path, "r") as file:
+        config = json.load(file)
+    return config
+
+
+def load_model(model_name):
+    """Load the sentence transformer model."""
+    logging.info(f"Loading model: {model_name}")
+    return SentenceTransformer(model_name)
+
+
+def read_input_file(file_path):
+    """Read input lines from the specified file."""
+    logging.info(f"Reading input file: {file_path}")
+    with open(file_path, "r") as file:
+        lines = file.readlines()
+    return lines
+
+
+def embed_lines(model, lines, batch_size=2):
+    """Embed input lines in batches."""
+    logging.info("Embedding lines")
+    embeddings = []
+    for i in range(0, len(lines), batch_size):
+        batch = lines[i : i + batch_size]
+        batch_embeddings = model.encode(batch)
+        embeddings.extend(batch_embeddings)
+    return np.array(embeddings)
+
+
+def save_embeddings(embedding_matrix, output_path):
+    """Save the embedding matrix to a .npy file."""
+    logging.info(f"Saving embeddings to: {output_path}")
+    np.save(output_path, embedding_matrix)
+
+
+def find_most_similar_lines(embedding_matrix):
+    """Find the two most similar lines based on cosine similarity."""
+    logging.info("Computing cosine similarities")
+    cosine_similarities = util.pytorch_cos_sim(
+        embedding_matrix, embedding_matrix
+    ).numpy()
+    np.fill_diagonal(cosine_similarities, -np.inf)
+    most_similar_pair = np.unravel_index(
+        np.argmax(cosine_similarities, axis=None), cosine_similarities.shape
+    )
+    return most_similar_pair
+
+
+def main(config_path):
+    """Main function to run the process."""
+    config = load_config(config_path)
+    model = load_model(config["model_name"])
+    lines = read_input_file(config["input_file"])
+    embedding_matrix = embed_lines(model, lines)
+    save_embeddings(embedding_matrix, config["output_file"])
+    line_a, line_b = find_most_similar_lines(embedding_matrix)
+    logging.info(
+        f"Line {line_a + 1} and Line {line_b + 1} are the most similar to each other"
+    )
+
+
+if __name__ == "__main__":
+    main("/docker-project/config.json")
