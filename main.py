@@ -12,6 +12,7 @@ logging.basicConfig(
 
 def load_config(config_path):
     """Load configuration from a JSON file."""
+    logging.info(f"Loading configuration from {config_path}")
     with open(config_path, "r") as file:
         config = json.load(file)
     return config
