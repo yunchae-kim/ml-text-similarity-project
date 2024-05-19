@@ -1,0 +1,5 @@
+{
+  "model_name": "AnnaWegmann/Style-Embedding",
+  "input_file": "/usr/local/dataset/input.txt",
+  "output_file": "/usr/local/output/output.npy"
+}
