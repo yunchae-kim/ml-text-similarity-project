@@ -1,8 +1,5 @@
 # Text Embedding and Similarity Analysis with Docker
 
-This README provides an overview of the project, including the technology stack
-used and instructions on how to set it up and run it.
-
 ## Project Overview
 
 This simple project involves setting up a Python application within a Docker container
