@@ -5,7 +5,7 @@ used and instructions on how to set it up and run it.
 
 ## Project Overview
 
-This project involves setting up a Python application within a Docker container
+This simple project involves setting up a Python application within a Docker container
 to process text data using a machine learning model. The goal is to embed text
 lines using a pre-trained model and find the most similar pairs of lines based
 on their embeddings. The project leverages the HuggingFace
