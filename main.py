@@ -67,6 +67,11 @@ def main(config_path):
     config = load_config(config_path)
     model = load_model(config["model_name"])
     lines = read_input_file(config["input_file"])
+
+    # Log a warning if the number of lines is not 10
+    if len(lines) != 10:
+        logging.warning("The input file does not contain exactly 10 lines.")
+
     embedding_matrix = embed_lines(model, lines)
     save_embeddings(embedding_matrix, config["output_file"])
     line_a, line_b = find_most_similar_lines(embedding_matrix)
