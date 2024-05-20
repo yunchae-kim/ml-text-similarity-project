@@ -1,20 +1,22 @@
-# UPenn Application Developer Take-Home Assignment
+# Text Embedding and Similarity Analysis with Docker
 
-This README provides an overview of my approach to the assignment.
+This README provides an overview of the project, including the technology stack
+used and instructions on how to set it up and run it.
 
-## Project Approach
+## Project Overview
 
-To tackle this assignment, I followed a structured approach:
+This project involves setting up a Python application within a Docker container
+to process text data using a machine learning model. The goal is to embed text
+lines using a pre-trained model and find the most similar pairs of lines based
+on their embeddings. The project leverages the HuggingFace
+`sentence-transformers` library to perform text embeddings.
 
-1. Reviewed assignment guidelines and requirements.
-2. Set up project structure and initialized Git repository.
-3. Created Dockerfile to define Docker container environment.
-4. Implemented `run.sh` script to automate building and running Docker container.
-5. Developed `main.py` script to perform core functionality using `HuggingFace` model.
-6. Resolved challenges, such as `pip` installation error and `find_similar_lines`
-   method incorrectly identifying the same lines as most similar.
-7. Modularized functions and added logging statements to enhance code quality.
-8. Thoroughly tested the implementation.
+## Technology Stack
+
+- **Docker**: Containerization of the application.
+- **Python 3.11**: The programming language used for the core functionality.
+- **HuggingFace**: Specifically, the `sentence-transformers` library to perform text embeddings.
+- **NumPy**: For numerical operations and saving the embeddings.
 
 ## How to Work on This Project
 
@@ -53,17 +55,18 @@ logic.
 
 ### Note on Input Data
 
-The script expects the input file to contain exactly 10 lines for optimal
-performance as per the assignment requirements. If the input file contains a
-different number of lines, a warning will be logged.
+The script expects the input file to contain exactly 10 lines to work with this
+specific sample as an example. If the input file contains a different number of
+lines, a warning will be logged. This setup is tailored for the example
+provided and may need adjustments for other datasets.
 
-## Project Duration
+## References
 
-Total time spent on the assignment: 2 hours and 30 minutes.
+- [AnnaWegmann/Style-Embedding on HuggingFace](https://huggingface.co/AnnaWegmann/Style-Embedding)
+- [Sentence-Transformers Documentation](https://www.sbert.net/index.html)
 
 ## Code Enhancements
 
-I modularized functions and incorporated logging statements in `main.py` to
-showcase my ability to write clean and maintainable code. While this may be
-considered an overkill for a small-scale assignment, I wanted to demonstrate
-the style and structure I could use if I were to work for this position.
+The functions in `main.py` are modularized and logging statements are
+incorporated to showcase clean and maintainable code. This demonstrates the
+style and structure that could be used in a professional setting.
